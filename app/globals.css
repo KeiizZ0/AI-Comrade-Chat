@@ -300,7 +300,7 @@ body {
 
   .footer{
   /* position: fixed akan menempatkan footer relatif terhadap viewport (layar) */
-  position: absolute;
+  position: fixed;
   margin-top: auto;
   gap: 50px;
   bottom: -5rem;
