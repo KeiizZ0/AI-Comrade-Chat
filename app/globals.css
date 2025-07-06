@@ -280,8 +280,8 @@ body {
     padding-right: 20px;
     /* Beri sedikit ruang di bawah navbar untuk kerapian */
     margin-top: 20px;
-    height: 100%;
-    height: 650px;
+    
+    height: 450px;
     width: auto;
 
     overflow: hidden;
