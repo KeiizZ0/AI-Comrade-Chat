@@ -267,6 +267,12 @@ body {
 
 @media (max-width: 768px) {
 
+  /* Jadikan <main> sebagai flex container di mobile */
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
   .navbar-container{
   display: flex;
   justify-content: space-between;
@@ -281,11 +287,10 @@ body {
     padding-right: 20px;
     /* Beri sedikit ruang di bawah navbar untuk kerapian */
     margin-top: 20px;
-    
-    height: 625px;
-    width: auto;
-
-    overflow: hidden;
+    /* KUNCI: Biarkan section ini tumbuh untuk mengisi ruang kosong */
+    flex-grow: 1;
+    /* Hapus tinggi yang pasti dan overflow yang memotong konten */
+    height: auto;
   }
 
   .profile-container{
