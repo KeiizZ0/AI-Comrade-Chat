@@ -4,8 +4,21 @@ import { FloatingLoveBackground } from "./components/floating-love-background"
 import InfoPopup from "./components/PopUp";
 import React, {useState, useEffect, useRef} from "react";
 import Navbar from "./components/Navbar"
+import Image from "next/image";
 
-const characters = [
+// Definisikan tipe untuk objek karakter agar kode lebih aman dan mudah dibaca
+type Character = {
+  id: string;
+  name: string;
+  title: string;
+  image: string;
+  bgClass: string;
+  bottomBgClass: string;
+  nameColorClass: string;
+  titleColorClass: string;
+  buttonColorClass: string;
+};
+const characters: Character[] = [
   {
     id: "shisuiya",
     name: "Shisuiya",
@@ -33,14 +46,14 @@ const characters = [
 
 export default function Home(){
 
-  const [activeCharacter, setActiveCharacter] = useState(characters[0])
+  const [activeCharacter, setActiveCharacter] = useState<Character>(characters[0])
   const [isExiting, setIsExiting] = useState(false); // State untuk transisi keluar
   const [isReady, setIsReady] = useState(false); // State untuk transisi masuk awal
   const [isPlaying, setIsPlaying] = useState(false); // State untuk musik
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State untuk popup
   const audioRef = useRef<HTMLAudioElement>(null); // Ref untuk elemen audio
 
-  const changeCharacter = (newCharacter) => {
+  const changeCharacter = (newCharacter: Character) => {
     // Jangan lakukan apa-apa jika karakter yang sama diklik atau sedang transisi
     if (newCharacter.id === activeCharacter.id || isExiting) {
       return;
@@ -118,12 +131,12 @@ export default function Home(){
 
             {/* profile */}
             <div className="profile-image-frame">
-            <img
-            className="w-full h-full object-cover" 
-            src={activeCharacter.image} 
-            
-            alt="profile char" 
-            
+            <Image
+              className="w-full h-full object-cover" 
+              src={activeCharacter.image} 
+              alt="profile char" 
+              width={128}
+              height={64}
             />
             </div>
 
@@ -147,10 +160,12 @@ export default function Home(){
             </h1>
             
             {/* Gambar Besar */}
-            <img 
+            <Image 
               key={`${activeCharacter.id}-main-image`} 
               className={`image-utama ${!isReady ? 'opacity-0' : (isExiting ? 'animate-fade-out' : 'animate-fade-in')}`} 
               src={activeCharacter.image} alt={`Gambar besar ${activeCharacter.name}`} 
+              width={700}
+              height={700}
             />
             
             {/* tombol manipulasi */}
@@ -164,7 +179,7 @@ export default function Home(){
                 }`}
                 onClick={() => changeCharacter(character)}
                   >
-                    <img 
+                    <Image 
                     src={character.image}
                   
                     alt={character.name}
