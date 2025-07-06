@@ -1,21 +1,19 @@
 @import "tailwindcss";
 
+@import "tailwindcss/preflight";
+
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
   }
 }
 
@@ -23,4 +21,335 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px;
+  
+  
+}
+
+.section-container{
+  height: 300px;
+  width: auto;
+  padding-left: 110px;
+  padding-right: 120px;
+  
+  
+}
+
+.logo-navbar{
+  width: 100px;
+  height: 100px;
+}
+
+.profil-char{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+
+}
+
+
+.profile-image-frame {
+  width: 8rem; /* 80px */
+  height: 4rem; /* 64px */
+  border: 3px solid black;
+  border-radius: 0.5rem; /* 8px */
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffff;
+}
+
+.name-title{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font: bold;
+}
+
+.name-character{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font: bold larger;
+  font-weight: bold;
+}
+
+.nama-charutama{
+  font-size: 180px;
+  font-family: 'Kaushan Script', 'Poppins';
+  font-weight: bold;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.image-utama{
+  position: absolute;
+  /* Posisikan gambar di kanan bawah kontainer relatifnya */
+  right: 120px;
+
+  margin-top: 100px; 
+  bottom: -300px; /* Nilai negatif akan membuatnya "menembus" ke bawah */
+  height: 700px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
+  /* Efek drop-shadow untuk bayangan yang lebih baik pada gambar transparan */
+  filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
+  z-index: 10; /* Pastikan gambar di atas elemen lain jika tumpang tindih */
+}
+
+.border-box{
+   border: 3px solid black;
+  border-radius: 0.5rem;
+  background-color: white;
+
+}
+
+.footer{
+  /* position: fixed akan menempatkan footer relatif terhadap viewport (layar) */
+  position: absolute;
+  bottom: -7rem;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  padding: 20px 120px;
+  /* z-index harus lebih tinggi dari z-index gambar (.image-utama) agar bisa menutupi */
+  z-index: 30; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Chat-Now{
+  /* Miringkan tombol sebesar -20 derajat secara horizontal */
+  background-color: #ebff93;
+  width: 12rem; /* Sedikit lebih lebar agar teks tidak terlalu sempit */
+  height: 4rem;
+  border: 2px solid black;
+  /* Melengkungkan sudut atas-kiri dan bawah-kanan */
+  border-radius: 1rem 0 1rem 0;
+}
+
+.button-text {
+  /* Pastikan span bisa di-transform */
+  display: inline-block;
+  /* Luruskan kembali teks dengan memiringkan ke arah sebaliknya */
+  
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.footer-text{
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+
+/* Keyframes untuk Animasi */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Kelas Utilitas untuk Animasi */
+.animate-slide-infaster { animation: slideInFromRight 0.5s ease-out forwards; }
+.animate-slide-outfaster { animation: slideOutToLeft 0.5s ease-in forwards; }
+
+.animate-slide-in { animation: slideInFromRight 0.6s ease-out forwards; }
+.animate-slide-out { animation: slideOutToLeft 1s ease-in forwards; }
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-fade-out { animation: fadeOut 0.3s ease-in forwards; }
+
+/* --- Popup Styles --- */
+.popup-overlay {
+  position: fixed;
+  inset: 0; /* sama dengan top: 0, right: 0, bottom: 0, left: 0 */
+  background-color: rgba(23, 23, 23, 0.6); /* Sedikit lebih gelap */
+  backdrop-filter: blur(4px); /* Efek blur untuk background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Pastikan popup di atas segalanya */
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border: 2px solid #171717;
+  transform: scale(0.95);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.popup-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #171717;
+  margin-bottom: 0.75rem;
+  font-family: 'Kaushan Script', 'Poppins';
+}
+
+.popup-message {
+  font-size: 1rem;
+  color: #3f3f46;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.popup-close-button {
+  background-color: #ebff93;
+  color: #171717;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #171717;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.popup-close-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(235, 255, 147, 0.5);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/*mobile*/
+
+@media (max-width: 768px) {
+
+  .navbar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  
+}
+
+  .section-container {
+    /* Atur ulang padding agar konten sejajar dengan logo di navbar */
+    padding-left: 20px;
+    padding-right: 20px;
+    /* Beri sedikit ruang di bawah navbar untuk kerapian */
+    margin-top: 20px; 
+  }
+
+  .profile-container{
+    display: flex;
+    /* 'left' bukan nilai yang valid untuk align-items. 'center' lebih sesuai. */
+    align-items: center;
+  }
+
+  .tombol-manipulasi{
+    bottom: auto;
+  }
+
+  .footer{
+  /* position: fixed akan menempatkan footer relatif terhadap viewport (layar) */
+  position: absolute;
+  gap: 50px;
+  bottom: -7rem;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  padding: 20px;
+  /* z-index harus lebih tinggi dari z-index gambar (.image-utama) agar bisa menutupi */
+  z-index: 30; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Chat-Now{
+  /* Miringkan tombol sebesar -20 derajat secara horizontal */
+  background-color: #ebff93;
+  width: 8rem; /* Sedikit lebih lebar agar teks tidak terlalu sempit */
+  height: 4rem;
+  border: 2px solid black;
+  /* Melengkungkan sudut atas-kiri dan bawah-kanan */
+  border-radius: 1rem 0 1rem 0;
+}
+
+.button-text {
+  /* Pastikan span bisa di-transform */
+  display: inline-block;
+  /* Luruskan kembali teks dengan memiringkan ke arah sebaliknya */
+  
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.footer-text{
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+
+.manipmobile-container{
+  position: absolute; /* Mengembalikan ke alur normal dokumen */
+  flex-direction: row; /* KUNCI: Mengubah jajaran tombol menjadi horizontal */
+  gap: 1rem; /* Memberi jarak antar tombol */
+  margin-top: 1.5rem; /* Memberi jarak dari elemen di atasnya */
+  top: auto; /* Menghapus properti posisi dari desktop */
+  right: auto;
+  bottom: -10.5rem;
+}
+
+.image-utama{
+  position: absolute;
+  /* Posisikan gambar di kanan bawah kontainer relatifnya */
+ left: 100px;
+
+  margin-top: 100px; 
+  bottom: -300px; /* Nilai negatif akan membuatnya "menembus" ke bawah */
+  height: 600px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
+  width: 400px;
+  /* Efek drop-shadow untuk bayangan yang lebih baik pada gambar transparan */
+  filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
+  z-index: 10; /* Pastikan gambar di atas elemen lain jika tumpang tindih */
+}
 }

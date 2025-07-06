@@ -1,103 +1,211 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { FloatingLoveBackground } from "./components/floating-love-background"
+import InfoPopup from "./components/PopUp";
+import React, {useState, useEffect, useRef} from "react";
+import Navbar from "./components/Navbar"
+
+const characters = [
+  {
+    id: "shisuiya",
+    name: "Shisuiya",
+    title: "Cutie Squad",
+    image: "/Shisuiya.png",
+    bgClass: "bg-gradient-to-br from-purple-200 via-purple-100 to-white",
+    bottomBgClass: "bg-gradient-to-r from-[#AA9DE6] to-purple-600",
+    nameColorClass: "text-[#AE9CFF]",
+    titleColorClass: "text-pink-400",
+    buttonColorClass: "bg-purple-200 hover:bg-purple-300 text-purple-700",
+  },
+  {
+    id: "yukiya",
+    name: "Yukiya",
+    title: "Cutie Squad",
+    image: "/Yukiya.png",
+    bgClass: "bg-gradient-to-br from-pink-200 via-pink-100 to-white",
+    bottomBgClass: "bg-gradient-to-r from-pink-400 to-pink-600",
+    nameColorClass: "text-pink-400",
+    titleColorClass: "text-pink-400",
+    buttonColorClass: "bg-pink-200 hover:bg-pink-300 text-pink-700",
+  },
+]
+
+
+export default function Home(){
+
+  const [activeCharacter, setActiveCharacter] = useState(characters[0])
+  const [isExiting, setIsExiting] = useState(false); // State untuk transisi keluar
+  const [isReady, setIsReady] = useState(false); // State untuk transisi masuk awal
+  const [isPlaying, setIsPlaying] = useState(false); // State untuk musik
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // State untuk popup
+  const audioRef = useRef<HTMLAudioElement>(null); // Ref untuk elemen audio
+
+  const changeCharacter = (newCharacter) => {
+    // Jangan lakukan apa-apa jika karakter yang sama diklik atau sedang transisi
+    if (newCharacter.id === activeCharacter.id || isExiting) {
+      return;
+    }
+    setIsExiting(true); // Mulai animasi keluar
+    setTimeout(() => {
+      setActiveCharacter(newCharacter); // Ganti karakter setelah animasi keluar
+      setIsExiting(false); // Reset state untuk animasi masuk
+    }, 300); // Durasi harus cocok dengan durasi animasi CSS
+  };
+
+  // Efek untuk memicu animasi masuk saat komponen pertama kali dimuat
+  useEffect(() => {
+    // Menambahkan sedikit penundaan untuk memastikan elemen sudah di-mount sebelum animasi dimulai
+    const timer = setTimeout(() => setIsReady(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Fungsi untuk tombol di Navbar
+  const togglePlayPause = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  // Efek untuk memutar musik saat interaksi pertama kali
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (audioRef.current && !audioRef.current.currentTime) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(error => {
+          console.log("Autoplay dicegah, menunggu interaksi pengguna berikutnya.", error);
+        });
+      }
+      // Hapus listener setelah interaksi pertama agar tidak berjalan lagi
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('keydown', handleFirstInteraction);
+
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+    };
+  }, []);
+
+  const handleStartChatClick = () => {
+    // Saat tombol diklik, tampilkan popup
+    setIsPopupOpen(true);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  
+  <main className={`min-h-screen p-8 transition-all duration-500 ${activeCharacter.bgClass}`}>
+    <audio ref={audioRef} src="/CuteMusic.mp3" preload="auto" loop />
+    <Navbar isPlaying={isPlaying} togglePlayPause={togglePlayPause} />
+    <FloatingLoveBackground />
+    {/* Main Section */}
+    <section className="section-container">
+    
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* profile karakter persegi panjang, nama char, Squad mana */}
+          <div 
+            key={`${activeCharacter.id}-profile`}
+            className={`profile-container flex items-center gap-4 ${!isReady ? 'opacity-0' : (isExiting ? 'animate-slide-outfaster' : 'animate-slide-infaster')}`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+
+            {/* profile */}
+            <div className="profile-image-frame">
+            <img
+            className="w-full h-full object-cover" 
+            src={activeCharacter.image} 
+            
+            alt="profile char" 
+            
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            </div>
+
+            {/* nama, Squad*/}
+            <div>              
+              <b><h4 className={`name-title ${activeCharacter.titleColorClass}`}>{activeCharacter.title}</h4></b>
+              <b><h3 className={`name-character ${activeCharacter.nameColorClass}`}>{activeCharacter.name}</h3></b>
+            </div>
+          </div>
+
+            {/*Nama Karakter Utama, gambar, Profile tombol manipulasi & More*/}
+          {/* Kontainer ini kita jadikan 'relative' sebagai acuan posisi untuk gambar */}
+          <div className="relative flex items-end justify-start h-full">
+
+            {/* Nama Karakter */}
+            <h1 
+              key={`${activeCharacter.id}-main-name`}
+              className={`nama-charutama ${activeCharacter.nameColorClass} ${!isReady ? 'opacity-0' : (isExiting ? 'animate-slide-out' : 'animate-slide-in')}`}
+            >
+              <i>{activeCharacter.name}</i>
+            </h1>
+            
+            {/* Gambar Besar */}
+            <img 
+              key={`${activeCharacter.id}-main-image`} 
+              className={`image-utama ${!isReady ? 'opacity-0' : (isExiting ? 'animate-fade-out' : 'animate-fade-in')}`} 
+              src={activeCharacter.image} alt={`Gambar besar ${activeCharacter.name}`} 
+            />
+            
+            {/* tombol manipulasi */}
+            <div className="manipmobile-container absolute right-1 top-15 z-20 flex flex-col gap-15  ">
+              {characters.map((character) => (
+                <div
+                  key={character.id}
+                  className={`justify-center items-center border-box bg-amber-50 w-25 h-25 rounded overflow-hidden cursor-pointer transition-all hover:scale-105 ${
+                  character.id === activeCharacter.id ? "border-yellow-400 shadow-lg" : "border-gray-300"
+
+                }`}
+                onClick={() => changeCharacter(character)}
+                  >
+                    <img 
+                    src={character.image}
+                  
+                    alt={character.name}
+                    width={100}
+                    height={100}
+                    className="w-full h-full object-cover" 
+                    />
+                  </div>
+                )
+                )}
+              
+            </div>
+          </div>
+{/* <img className="w-full h-full object-cover" src={activeCharacter.image} alt="tombolManip" /> */}
+            
+    </section>
+
+    {/* Footer Section */}
+    <div className={`footer ${activeCharacter.bottomBgClass}`}>
+        <div className="text-white">
+          <h1 className="footer-text text-4xl font-bold">Chat For Free!!</h1>
+          <h4 className="footer-text text-lg">Converse With AI Friends</h4>
+          
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div>
+          <button 
+            onClick={handleStartChatClick}
+            className={`Chat-Now px-8 py-4 font-bold text-lg transition-all hover:scale-105 ${activeCharacter.buttonColorClass}`}
+          >
+            <h1  className="button-text">Start Chat</h1>
+          </button>
+        </div>
     </div>
-  );
+
+    {/* Render popup secara kondisional */}
+    {isPopupOpen && <InfoPopup onClose={() => setIsPopupOpen(false)} />}
+  </main>
+    
+  
+
+  
+  )
+
 }
