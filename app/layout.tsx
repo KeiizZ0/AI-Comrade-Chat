@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Kaushan_Script } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const kaushan = Kaushan_Script({
+  subsets: ["latin"],
+  weight: "400", // Kaushan Script hanya memiliki weight 400
+  variable: "--font-kaushan", // Kita akan menggunakan variabel ini di CSS
 });
 
 const geistMono = Geist_Mono({
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${kaushan.variable} antialiased`}
       >
         {children}
       </body>
