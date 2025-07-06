@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @import "tailwindcss/preflight";
+@import url('https://fonts.cdnfonts.com/css/kaushan-script');
+@import url('https://fonts.cdnfonts.com/css/poppins');
 
 
 
@@ -351,7 +353,7 @@ body {
   margin-top: 1.5rem; /* Memberi jarak dari elemen di atasnya */
   top: auto; /* Menghapus properti posisi dari desktop */
   right: auto;
-  bottom: -15rem;
+  bottom: -16rem;
 }
 
 .image-utama{
@@ -373,7 +375,9 @@ body {
   font-family: 'Kaushan Script', 'Poppins';
   font-weight: bold;
   text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-right: 3rem;
+  
   
 }
 }
