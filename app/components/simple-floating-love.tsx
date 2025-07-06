@@ -2,13 +2,21 @@
 
 import { useEffect, useState } from "react"
 
+interface SimpleLove {
+  id: number;
+  x: number;
+  y: number;
+  opacity: number;
+  size: number;
+  speed: number;
+}
 // VERSI YANG SANGAT SEDERHANA UNTUK TESTING
 export function SimpleFloatingLove() {
-  const [loves, setLoves] = useState<any[]>([])
+  const [loves, setLoves] = useState<SimpleLove[]>([])
 
   useEffect(() => {
     // GENERATE LOVE ELEMENTS
-    const newLoves = []
+    const newLoves: SimpleLove[] = []
     for (let i = 0; i < 15; i++) {
       newLoves.push({
         id: i,

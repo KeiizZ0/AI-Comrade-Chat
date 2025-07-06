@@ -183,7 +183,7 @@ export default function Home(){
                     src={character.image}
                   
                     alt={character.name}
-                    width={100}
+                    width={60}
                     height={100}
                     className="w-full h-full object-cover" 
                     />

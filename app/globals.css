@@ -89,7 +89,8 @@ body {
   /* Posisikan gambar di kanan bawah kontainer relatifnya */
   right: 120px;
 
-  margin-top: 100px; 
+  margin-top: 100px;
+  width: auto; 
   bottom: -300px; /* Nilai negatif akan membuatnya "menembus" ke bawah */
   height: 700px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
   /* Efek drop-shadow untuk bayangan yang lebih baik pada gambar transparan */
