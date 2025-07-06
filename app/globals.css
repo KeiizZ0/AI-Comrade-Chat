@@ -85,7 +85,7 @@ body {
   font-family: 'Kaushan Script', 'Poppins';
   font-weight: bold;
   text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-  top: 1;
+  
 }
 
 .image-utama{
@@ -351,7 +351,7 @@ body {
   margin-top: 1.5rem; /* Memberi jarak dari elemen di atasnya */
   top: auto; /* Menghapus properti posisi dari desktop */
   right: auto;
-  bottom: -10rem;
+  bottom: -15rem;
 }
 
 .image-utama{
@@ -366,5 +366,14 @@ body {
   /* Efek drop-shadow untuk bayangan yang lebih baik pada gambar transparan */
   filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
   z-index: 10; /* Pastikan gambar di atas elemen lain jika tumpang tindih */
+}
+
+.nama-charutama{
+  font-size: 180px;
+  font-family: 'Kaushan Script', 'Poppins';
+  font-weight: bold;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  margin-top: 3rem;
+  
 }
 }
