@@ -195,9 +195,11 @@ export default function Home(){
           </div>
 {/* <img className="w-full h-full object-cover" src={activeCharacter.image} alt="tombolManip" /> */}
             
+    </section>
 
-            {/* Footer Section */}
-    <div className={`footer ${activeCharacter.bottomBgClass}`}>
+    {/* Footer Section */}
+    <footer>
+        <div className={`footer ${activeCharacter.bottomBgClass}`}>
         <div className="text-white">
           <h1 className="footer-text text-4xl font-bold">Chat For Free!!</h1>
           <h4 className="footer-text text-lg">Converse With AI Friends</h4>
@@ -215,8 +217,7 @@ export default function Home(){
 
     {/* Render popup secara kondisional */}
     {isPopupOpen && <InfoPopup onClose={() => setIsPopupOpen(false)} />}
-    </section>
-
+    </footer>
     
   </main>
     
