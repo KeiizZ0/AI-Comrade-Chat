@@ -64,7 +64,7 @@ body {
 }
 
 .name-title{
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Poppins';
   font-size: 20px;
   font: bold;
   overflow: hidden;
@@ -73,7 +73,7 @@ body {
 }
 
 .name-character{
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Poppins',;
   font-size: 20px;
   font: bold larger;
   font-weight: bold;
@@ -81,7 +81,7 @@ body {
 
 .nama-charutama{
   font-size: 180px;
-  font-family: var(--font-kaushan), 'Poppins', serif;
+  font-family: var(--font-kaushan), 'Poppins';
   font-weight: bold;
   text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
   
