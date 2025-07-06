@@ -267,12 +267,6 @@ body {
 
 @media (max-width: 768px) {
 
-  /* Jadikan <main> sebagai flex container di mobile */
-  main {
-    display: flex;
-    flex-direction: column;
-  }
-
   .navbar-container{
   display: flex;
   justify-content: space-between;
@@ -287,10 +281,11 @@ body {
     padding-right: 20px;
     /* Beri sedikit ruang di bawah navbar untuk kerapian */
     margin-top: 20px;
-    /* KUNCI: Biarkan section ini tumbuh untuk mengisi ruang kosong */
-    flex-grow: 1;
-    /* Hapus tinggi yang pasti dan overflow yang memotong konten */
-    height: auto;
+    
+    height: 625px;
+    width: auto;
+
+    overflow: hidden;
   }
 
   .profile-container{
@@ -351,7 +346,7 @@ body {
   margin-top: 1.5rem; /* Memberi jarak dari elemen di atasnya */
   top: auto; /* Menghapus properti posisi dari desktop */
   right: auto;
-  bottom: 10rem;
+  
 }
 
 .image-utama{
