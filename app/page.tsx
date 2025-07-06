@@ -149,7 +149,7 @@ export default function Home(){
 
             {/*Nama Karakter Utama, gambar, Profile tombol manipulasi & More*/}
           {/* Kontainer ini kita jadikan 'relative' sebagai acuan posisi untuk gambar */}
-          <div className="relative flex items-end justify-start h-full">
+          <div className="relative top-1 flex items-start justify-start h-full">
 
             {/* Nama Karakter */}
             <h1 
@@ -162,7 +162,7 @@ export default function Home(){
             {/* Gambar Besar */}
             <Image 
               key={`${activeCharacter.id}-main-image`} 
-              className={`image-utama ${!isReady ? 'opacity-0' : (isExiting ? 'animate-fade-out' : 'animate-fade-in')}`} 
+              className={`image-utama  ${!isReady ? 'opacity-0' : (isExiting ? 'animate-fade-out' : 'animate-fade-in')}`} 
               src={activeCharacter.image} alt={`Gambar besar ${activeCharacter.name}`} 
               width={700}
               height={700}

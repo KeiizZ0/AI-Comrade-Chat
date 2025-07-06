@@ -33,11 +33,11 @@ body {
 }
 
 .section-container{
-  height: 300px;
+  height: 600px;
   width: auto;
   padding-left: 110px;
   padding-right: 120px;
-  
+  overflow: hidden;
   
 }
 
@@ -68,6 +68,9 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   font: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .name-character{
@@ -82,13 +85,14 @@ body {
   font-family: 'Kaushan Script', 'Poppins';
   font-weight: bold;
   text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  top: 1;
 }
 
 .image-utama{
   position: absolute;
   /* Posisikan gambar di kanan bawah kontainer relatifnya */
   right: 120px;
-
+  top: -10rem;
   margin-top: 100px;
   width: auto; 
   bottom: -300px; /* Nilai negatif akan membuatnya "menembus" ke bawah */
@@ -117,6 +121,7 @@ body {
   z-index: 30; 
   display: flex;
   align-items: center;
+  overflow: hidden;
   justify-content: space-between;
 }
 
@@ -275,7 +280,12 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     /* Beri sedikit ruang di bawah navbar untuk kerapian */
-    margin-top: 20px; 
+    margin-top: 20px;
+    height: 100%;
+    height: 650px;
+    width: auto;
+
+    overflow: hidden;
   }
 
   .profile-container{
@@ -297,6 +307,7 @@ body {
   width: 100%;
   height: 120px;
   padding: 20px;
+  overflow: hidden;
   /* z-index harus lebih tinggi dari z-index gambar (.image-utama) agar bisa menutupi */
   z-index: 30; 
   display: flex;
@@ -337,18 +348,18 @@ body {
   margin-top: 1.5rem; /* Memberi jarak dari elemen di atasnya */
   top: auto; /* Menghapus properti posisi dari desktop */
   right: auto;
-  bottom: -10.5rem;
+  bottom: 10rem;
 }
 
 .image-utama{
   position: absolute;
   /* Posisikan gambar di kanan bawah kontainer relatifnya */
- left: 100px;
+ left: 70%; transform: translateX(-50%);
 
   margin-top: 100px; 
-  bottom: -300px; /* Nilai negatif akan membuatnya "menembus" ke bawah */
-  height: 600px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
-  width: 400px;
+  bottom: 0; /* Nilai negatif akan membuatnya "menembus" ke bawah */
+  height: auto; /* Sesuaikan tinggi gambar sesuai kebutuhan */
+  width: 100%;
   /* Efek drop-shadow untuk bayangan yang lebih baik pada gambar transparan */
   filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
   z-index: 10; /* Pastikan gambar di atas elemen lain jika tumpang tindih */
