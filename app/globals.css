@@ -281,7 +281,7 @@ body {
     /* Beri sedikit ruang di bawah navbar untuk kerapian */
     margin-top: 20px;
     
-    height: 650px;
+    height: 600px;
     width: auto;
 
     overflow: hidden;
@@ -363,4 +363,6 @@ body {
   filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.3));
   z-index: 10; /* Pastikan gambar di atas elemen lain jika tumpang tindih */
 }
+
+
 }
